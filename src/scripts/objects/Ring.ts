@@ -3,5 +3,6 @@ export class Ring extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, 'green-ball');
     scene.add.existing(this);
     scene.physics.add.existing(this);
+    this.setCircle(this.body.width / 2);
   }
 }

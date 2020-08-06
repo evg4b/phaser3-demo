@@ -36,5 +36,6 @@ module.exports = {
       ts: 'never',
       js: 'never',
     }],
+    'no-plusplus': 'off',
   },
 };
