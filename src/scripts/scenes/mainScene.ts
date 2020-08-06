@@ -1,27 +1,58 @@
-import PhaserLogo from '../objects/phaserLogo'
-import FpsText from '../objects/fpsText'
+import FpsText from '../objects/FpsText';
+import { Ring, Ball } from '../objects';
 
-export default class MainScene extends Phaser.Scene {
-  fpsText: Phaser.GameObjects.Text
+export class MainScene extends Phaser.Scene {
+  private fpsText: Phaser.GameObjects.Text;
+
+  private margin = 50;
+
+  private balls: Phaser.GameObjects.Group;
+
+  private rings: Phaser.GameObjects.Group;
 
   constructor() {
-    super({ key: 'MainScene' })
+    super({ key: 'MainScene' });
   }
 
   create() {
-    new PhaserLogo(this, this.cameras.main.width / 2, 0)
-    this.fpsText = new FpsText(this)
+    this.fpsText = new FpsText(this);
+    this.balls = this.make.group({
+      classType: Ball,
+      key: 'ball',
+      frameQuantity: 20,
+    });
+    const rect = new Phaser.Geom.Rectangle(300, 300, 150, 100);
 
-    // display the Phaser.VERSION
-    this.add
-      .text(this.cameras.main.width - 15, 15, `Phaser v${Phaser.VERSION}`, {
-        color: '#000000',
-        fontSize: 24
-      })
-      .setOrigin(1, 0)
+    //  Randomly position the sprites within the rectangle
+    Phaser.Actions.RandomRectangle(this.balls.getChildren(), rect);
+
+    this.rings = this.make.group({
+      classType: this.makeRandomRing,
+      key: 'ring',
+      quantity: 5,
+    });
+
+    this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+      Phaser.Actions.Call(this.balls.getChildren(), (p) => {
+        const ball = p as Ball;
+        const power = Phaser.Math.Distance.BetweenPoints(ball.getCenter(), pointer);
+        const angle = Phaser.Math.Angle.BetweenPoints(ball.getCenter(), pointer);
+        const demo = ball.getCenter().clone().setAngle(angle).negate()
+          .scale(this.cameras.main.width / (10 * power));
+        ball.setVelocity(demo.x, demo.y);
+      }, this);
+    }, this);
+
+    this.physics.add.collider(this.balls, this.balls);
   }
 
   update() {
-    this.fpsText.update()
+    this.fpsText.update();
+  }
+
+  makeRandomRing = (): Ring => {
+    const x = Phaser.Math.Between(this.margin, this.cameras.main.width - this.margin);
+    const y = Phaser.Math.Between(this.margin, this.cameras.main.height * (2 / 3));
+    return new Ring(this, x, y);
   }
 }
