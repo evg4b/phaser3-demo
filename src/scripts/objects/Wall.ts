@@ -1,24 +1,23 @@
 export class Wall extends Phaser.Physics.Arcade.Sprite {
-  public static Horizontal: number = 1;
-
-  public static Vertical: number = 2;
-
+  public static HORIZONTAL: number = 1;
+  public static VERTICAL: number = 2;
   private collisionCount = 5;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, direction: number = Wall.Horizontal) {
-    super(scene, x, y, 'wall1');
+  constructor(scene: Phaser.Scene, x: number, y: number, direction: number = Wall.HORIZONTAL) {
+    super(scene, x, y, direction === Wall.HORIZONTAL ? 'wall-h' : 'wall-v');
     scene.add.existing(this);
     scene.physics.add.existing(this);
     this.body.immovable = true;
-    if (direction === Wall.Horizontal) {
-      this.setSize(scene.cameras.main.width - 100, 10);
+    const wallWidth = 10;
+    if (direction === Wall.HORIZONTAL) {
+      this.setSize(scene.cameras.main.width - 100, wallWidth);
     } else {
-      this.setSize(10, scene.cameras.main.height - 100);
+      this.setSize(wallWidth, scene.cameras.main.height - 115);
     }
   }
 
   collision() {
-    if (this.collisionCount > 0) {
+    if (this.collisionCount) {
       this.collisionCount--;
     } else {
       this.destroy();

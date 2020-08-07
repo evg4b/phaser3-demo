@@ -10,6 +10,7 @@ module.exports = {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
     Phaser: 'readonly',
+    WebFontConfig: true,
   },
   settings: {
     'import/extensions': ['.ts', '.js'],
@@ -37,5 +38,18 @@ module.exports = {
       js: 'never',
     }],
     'no-plusplus': 'off',
+    'lines-between-class-members': 'off',
+    'max-len': ['error', { code: 120 }],
+    'object-curly-newline': ['error', {
+      ObjectPattern: {
+        multiline: true,
+      },
+      ImportDeclaration: 'never',
+      ExportDeclaration: {
+        multiline: true,
+        minProperties: 5,
+      },
+    }],
+    'no-new': 'off',
   },
 };

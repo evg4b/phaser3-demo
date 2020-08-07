@@ -3,7 +3,6 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, 'ball');
     scene.add.existing(this);
     scene.physics.add.existing(this);
-    this.setCollideWorldBounds(true);
     this.setBounce(1, 1);
     this.setCircle(this.body.width / 2);
   }
