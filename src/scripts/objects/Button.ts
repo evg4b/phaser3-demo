@@ -11,7 +11,7 @@ export class Button extends Phaser.GameObjects.Text {
 
     scene.add.existing(this);
     this.setOrigin(0);
-    this.setInteractive();
+    this.setInteractive({ useHandCursor: true });
     this.on('pointerdown', () => handler(), this);
     this.on('pointerover', () => this.setColor(Button.activeColor), this);
     this.on('pointerout', () => this.setColor(Button.baseColor), this);

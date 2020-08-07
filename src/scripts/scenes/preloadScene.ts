@@ -9,7 +9,6 @@ export class PreloadScene extends Phaser.Scene {
     this.load.image('wall-h', 'assets/img/wall-h.png');
     this.load.image('wall-v', 'assets/img/wall-v.png');
     this.load.image('background', 'assets/img/background.png');
-    this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
   }
 
   create() {

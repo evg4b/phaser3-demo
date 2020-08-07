@@ -14,6 +14,6 @@ export class ScoreBoard extends Phaser.GameObjects.Text {
   }
 
   static makeMessage(score: number) {
-    return `Your score: ${score}`;
+    return `Your score: ${String(score).padStart(4, '0')}`;
   }
 }
