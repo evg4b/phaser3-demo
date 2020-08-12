@@ -1,3 +1,3 @@
-export { MainScene } from './MainScene';
-export { PreloadScene } from './PreloadScene';
-export { ScoreScene } from './ScoreScene';
+export { MainScene } from './MainScene1';
+export { PreloadScene } from './PreloadScene1';
+export { ScoreScene } from './ScoreScene1';
