@@ -18,7 +18,7 @@ export class Wall extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  collision() {
+  public collision() {
     if (this.collisionCount) {
       this.collisionCount--;
     } else {

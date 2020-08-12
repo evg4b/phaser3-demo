@@ -1,4 +1,5 @@
 const path = require('path');
+const package = require('../package.json');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -28,7 +29,7 @@ module.exports = {
     },
   },
   plugins: [
-    new HtmlWebpackPlugin({ gameName: 'My Phaser Game', template: 'src/index.html' }),
+    new HtmlWebpackPlugin({ gameName: package.gameName, template: 'src/index.html' }),
     new CopyWebpackPlugin([
       { from: 'src/assets', to: 'assets' },
       { from: 'src/favicon.ico', to: '' },

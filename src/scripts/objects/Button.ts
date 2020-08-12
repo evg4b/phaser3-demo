@@ -1,3 +1,5 @@
+import { FONT_FAMILY } from '../constants';
+
 export class Button extends Phaser.GameObjects.Text {
   private static baseColor = '#000000';
   private static activeColor = '#7d0000';
@@ -6,7 +8,7 @@ export class Button extends Phaser.GameObjects.Text {
     super(scene, x, y, text, {
       color: Button.baseColor,
       fontSize: '28px',
-      fontFamily: 'Bungee',
+      fontFamily: FONT_FAMILY,
     });
 
     scene.add.existing(this);

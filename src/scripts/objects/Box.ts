@@ -14,7 +14,7 @@ export class Box extends Phaser.GameObjects.GameObject {
     ]);
   }
 
-  getGroup() {
+  public getGroup() {
     return this.group;
   }
 }
