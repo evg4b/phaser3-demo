@@ -13,3 +13,17 @@ export const SCENES = {
 };
 
 export const FONT_FAMILY = 'Bungee';
+
+export const SCORE_STYLES = {
+  color: '#ffc800',
+  fontSize: '28px',
+  fontFamily: FONT_FAMILY,
+  shadow: {
+    blur: 4,
+    color: 'red',
+    offsetX: 0,
+    offsetY: 0,
+    fill: true,
+    stroke: true,
+  },
+};

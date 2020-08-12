@@ -20,7 +20,7 @@ export class MainScene extends Phaser.Scene {
     this.add.tileSprite(centerX, centerY, width, height, TEXTURES.BACKGROUND);
     this.score = 0;
     this.scoreBoard = new ScoreBoard(this, this.score);
-    new Button(this, width - 180, 20, 'Restart', () => this.scene.restart());
+    new Button(this, width - 210, 10, 'Restart', () => this.scene.restart());
     const box = new Box(this);
     this.generateRings(width, height);
     const actionRectangle = new Phaser.Geom.Rectangle(centerX - 70, height - 170, 140, 100);

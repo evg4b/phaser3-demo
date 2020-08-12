@@ -1,4 +1,4 @@
-import { SCENES, FONT_FAMILY } from '../constants';
+import { SCENES, SCORE_STYLES } from '../constants';
 import { Button } from '../objects';
 
 export class ScoreScene extends Phaser.Scene {
@@ -17,9 +17,8 @@ export class ScoreScene extends Phaser.Scene {
     this.add.tileSprite(centerX, centerY, width, height, 'background');
 
     this.add.text(centerX - 180, centerY, `Your score: ${String(this.score).padStart(4, '0')}`, {
-      color: 'black',
+      ...SCORE_STYLES,
       fontSize: '40px',
-      fontFamily: FONT_FAMILY,
     });
 
     new Button(this, centerX - 70, centerY + 100, 'New game', () => this.scene.start(SCENES.MAIN));
