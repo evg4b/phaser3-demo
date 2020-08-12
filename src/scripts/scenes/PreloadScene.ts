@@ -1,8 +1,12 @@
-import { SCENES, TEXTURES } from '../constants';
+import FontFaceObserver from 'fontfaceobserver';
+import { FONT_FAMILY, SCENES, TEXTURES } from '../constants';
 
 export class PreloadScene extends Phaser.Scene {
+  private font: FontFaceObserver;
+
   constructor() {
     super({ key: SCENES.PRELOAD });
+    this.font = new FontFaceObserver(FONT_FAMILY);
   }
 
   public preload() {
@@ -14,6 +18,8 @@ export class PreloadScene extends Phaser.Scene {
   }
 
   public create() {
-    this.scene.start(SCENES.MAIN);
+    this.font.load()
+      .then(() => this.scene.start(SCENES.MAIN))
+      .catch(() => { throw new Error(`Failed load font: '${FONT_FAMILY}'`); });
   }
 }
