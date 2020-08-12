@@ -1,3 +1,4 @@
+import { TEXTURES } from '../constants';
 import { Ring, Ball, Box, ScoreBoard, Wall } from '../objects';
 import { Button } from '../objects/Button';
 
@@ -7,7 +8,6 @@ export class MainScene extends Phaser.Scene {
   private scoreBoard: ScoreBoard;
   private actionRectangle: Phaser.Geom.Rectangle;
   private score: number;
-  private actionStarted = false;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -15,20 +15,35 @@ export class MainScene extends Phaser.Scene {
 
   public create() {
     const { centerX, centerY, width, height } = this.cameras.main;
-    this.add.tileSprite(centerX, centerY, width, height, 'background');
+    this.add.tileSprite(centerX, centerY, width, height, TEXTURES.BACKGROUND);
     this.score = 0;
-    this.actionStarted = false;
     this.scoreBoard = new ScoreBoard(this, this.score);
     const box = new Box(this);
     this.generateBalls(centerX, height);
     this.generateRings(width, height);
     new Button(this, width - 180, 20, 'Restart', () => this.scene.restart());
-    this.input.on('pointerdown', this.pointerDownHandler, this);
+    this.registerSwipeHandler();
     this.physics.add.collider(this.balls, this.balls);
     this.physics.add.collider(this.balls, box.getGroup(), (ball, wall) => (wall as Wall).collision());
     this.physics.add.overlap(this.balls, this.rings, (ball) => {
       this.incrementScore();
       ball.destroy();
+    });
+  }
+
+  private registerSwipeHandler() {
+    let isSwipeStarted = false;
+    let actionStarted = false;
+    this.input.on('pointerdown', (pointer) => {
+      if (Phaser.Geom.Rectangle.Contains(this.actionRectangle, pointer.x, pointer.y)) {
+        isSwipeStarted = true;
+      }
+    }, this);
+    this.input.on('pointerup', (pointer: Phaser.Input.Pointer) => {
+      if (!actionStarted && isSwipeStarted) {
+        actionStarted = true;
+        Phaser.Actions.Call(this.balls.getChildren(), (x) => (x as Ball).directTo(pointer), this);
+      }
     });
   }
 
@@ -44,13 +59,6 @@ export class MainScene extends Phaser.Scene {
       this.scene.start('ScoreScene', { score: this.score });
     }
   }
-
-  private pointerDownHandler = (pointer: Phaser.Input.Pointer) => {
-    if (!this.actionStarted && Phaser.Geom.Rectangle.Contains(this.actionRectangle, pointer.x, pointer.y)) {
-      this.actionStarted = true;
-      Phaser.Actions.Call(this.balls.getChildren(), (x) => (x as Ball).directFrom(pointer), this);
-    }
-  };
 
   private generateRings(width: number, height: number) {
     this.rings = this.make.group({ classType: Ring, key: 'ring', quantity: 5 });

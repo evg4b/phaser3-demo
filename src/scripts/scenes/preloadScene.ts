@@ -1,14 +1,16 @@
+import { TEXTURES } from '../constants';
+
 export class PreloadScene extends Phaser.Scene {
   constructor() {
     super({ key: 'PreloadScene' });
   }
 
   preload() {
-    this.load.image('ring', 'assets/img/ring.png');
-    this.load.image('ball', 'assets/img/ball.png');
-    this.load.image('wall-h', 'assets/img/wall-h.png');
-    this.load.image('wall-v', 'assets/img/wall-v.png');
-    this.load.image('background', 'assets/img/background.png');
+    this.load.image(TEXTURES.RING, 'assets/img/ring.png');
+    this.load.image(TEXTURES.BALL, 'assets/img/ball.png');
+    this.load.image(TEXTURES.WALL_HORIZONTAL, 'assets/img/wall-h.png');
+    this.load.image(TEXTURES.WALL_VERTICAL, 'assets/img/wall-v.png');
+    this.load.image(TEXTURES.BACKGROUND, 'assets/img/background.png');
   }
 
   create() {

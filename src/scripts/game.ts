@@ -18,7 +18,7 @@ window.addEventListener('load', () => new Phaser.Game({
   scene: [PreloadScene, MainScene, ScoreScene],
   physics: {
     default: 'arcade',
-    arcade: { debug: false },
+    arcade: { debug: !!localStorage.debug },
   },
   disableContextMenu: true,
 }));

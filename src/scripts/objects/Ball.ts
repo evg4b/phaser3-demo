@@ -7,14 +7,9 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     this.setCircle(this.body.width / 2);
   }
 
-  public directFrom(pointer: Phaser.Input.Pointer) {
-    const power = Phaser.Math.Distance.BetweenPoints(this.getCenter(), pointer);
+  public directTo(pointer: Phaser.Input.Pointer) {
     const angle = Phaser.Math.Angle.BetweenPoints(this.getCenter(), pointer);
-    const targetVector = this.getCenter()
-      .clone()
-      .setAngle(angle)
-      .negate()
-      .scale(this.scene.cameras.main.width / (15 * power));
+    const targetVector = pointer.velocity.clone().scale(2).setAngle(angle);
     this.setVelocity(targetVector.x, targetVector.y);
   }
 }

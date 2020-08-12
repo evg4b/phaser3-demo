@@ -1,10 +1,12 @@
+import { TEXTURES } from '../constants';
+
 export class Wall extends Phaser.Physics.Arcade.Sprite {
   public static HORIZONTAL: number = 1;
   public static VERTICAL: number = 2;
   private collisionCount = 5;
 
   constructor(scene: Phaser.Scene, x: number, y: number, direction: number = Wall.HORIZONTAL) {
-    super(scene, x, y, direction === Wall.HORIZONTAL ? 'wall-h' : 'wall-v');
+    super(scene, x, y, direction === Wall.HORIZONTAL ? TEXTURES.WALL_HORIZONTAL : TEXTURES.WALL_VERTICAL);
     scene.add.existing(this);
     scene.physics.add.existing(this);
     this.body.immovable = true;
